@@ -17,11 +17,8 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <link
-      rel="shortcut icon"
-      href="../assets/IMG/2nd R-logo.png"
-      type="image/x-icon"
-    />
+      <link rel="shortcut icon" href="/assets/IMG/favicon.ico?v=1" type="image/ico" />
+
     <link rel="stylesheet" href="../assets/CSS/login.css" />
   </head>
   <body>
@@ -29,7 +26,7 @@
 
     <nav class="navbar navbar-expand-lg bg-body-tertiary p-3">
       <div class="container-fluid">
-        <a href="./home.html" class="navbar-brand text-secondary fs-2">MUHARRAM</a>
+        <a href="/" class="navbar-brand text-secondary fs-2">MUHARRAM</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -43,24 +40,30 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav ms-auto me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link text-primary fs-4" aria-current="page" href="#"
+            {{!-- <li class="nav-item">
+              <a class="nav-link text-primary fs-4" aria-current="page" href="/"
                 >Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-primary fs-4" href="#">About</a>
+              <a class="nav-link text-primary fs-4" href="/#hero">About</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-primary fs-4" href="#">contact</a>
+              <a class="nav-link text-primary fs-4" href="/#project">Projects</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-primary fs-4" href="/#testimoni">Testimonial</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-primary fs-4" href="/#gallery">Gallery</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-primary fs-4" href="/#contact">Contact</a>
             </li>
             <li class="nav-item">
               <a class="nav-link text-primary fs-4" href="#">Add Project</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link text-primary fs-4" href="#">Testimonial</a>
-            </li>
+            </li> --}}
           </ul>
-          <button class="btn btn-outline-primary" type="submit">Log in</button>
+           <a href="/login"><button class="btn btn-outline-primary" type="submit">Log in</button> </a>
         </div>
       </div>
     </nav>
