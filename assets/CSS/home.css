@@ -74,6 +74,18 @@ body {
   --bs-btn-active-border-color: rgb(53, 105, 109);
 }
 
+.btn-outline-secondary {
+  --bs-btn-color: #000;
+  --bs-btn-border-color: rgb(53, 105, 109);
+  --bs-btn-bg: rgb(53, 105, 109);
+  --bs-btn-hover-color: rgb(53, 105, 109);
+  --bs-btn-hover-bg: #000;
+  --bs-btn-hover-border-color: rgb(53, 105, 109);
+  --bs-btn-active-color: #000;
+  --bs-btn-active-bg: rgb(53, 105, 109);
+  --bs-btn-active-border-color: rgb(53, 105, 109);
+}
+
 .btn-login:hover {
   transform: scale(1.05);
 }

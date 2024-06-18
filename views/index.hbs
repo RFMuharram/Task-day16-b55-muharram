@@ -67,13 +67,22 @@
             <li class="nav-item">
               <a class="nav-link text-primary fs-4" href="#contact">Contact</a>
             </li>
+            {{#if login}}
             <li class="nav-item">
               <a class="nav-link text-primary fs-4" href="/project"
                 >Add Project</a
               >
             </li>
+            {{/if}}
           </ul>
+          {{#unless login}}
           <a href="/login"><button class="btn btn-outline-primary" type="submit">Log in</button> </a>
+          {{/unless}}
+          {{#if login}}
+          <form method="post" action="logOut" role="search">
+            <button class="btn btn-outline-secondary" type="submit">Log out</button>
+          </form>
+          {{/if}}
         </div>
       </div>
     </nav>
@@ -83,7 +92,7 @@
     <!-- Welcome section START-->
 
     <section class="welcome" id="home">
-      <div class="card-welcome"><h1 id="text">WELCOME</h1></div>
+      <div class="card-welcome"><h1 id="text">WELCOME</h1><h1 id="text">{{user.username}}</h1></div>
     </section>
 
     <!-- Welcome section END -->
@@ -185,7 +194,7 @@
                           <i class="fa-brands fa-react"></i>
                         </div>
                       {{/if}}
-                      {{#if this.javaScript}}
+                      {{#if this.javascript}}
                         <div class="col-auto me-1">
                           <i class="fa-brands fa-js"></i>
                         </div>
@@ -197,21 +206,22 @@
                       {{/if}}
                 </div>
                 <a
-                  href="/bigproject/{{@index}}"
+                  href="/bigproject/{{id}}"
                   target="_blank"
                   class="btn btn-link fw-lighter custom-link"
-                  >Read More</a
-                >
+                  >Read More</a>
+                {{#if ../login}}
                 <div class="btn-container d-flex justify-content-between mt-3">
-                  <a class="btn btn-success border-0 edit-btn" href="/edit/{{@index}}">
+                  <a class="btn btn-success border-0 edit-btn" href="/edit/{{id}}">
                     Edit
                   </a>
-                  <form action="/delete/{{@index}}" method="post">
+                  <form action="/delete/{{id}}" method="post">
                     <button class="btn btn-danger border-0 delete-btn">
                       Delete
                     </button>
                   </form>
                 </div>
+                {{/if}}
               </div>
             </div>
           </div>
@@ -409,7 +419,7 @@
         <a href="#testimoni" class="btn btn-link">Testimonial</a>
         <a href="#gallery" class="btn btn-link">Gallery</a>
         <a href="#contact" class="btn btn-link">Contact</a>
-        <a href="/project" class="btn btn-link">Add Project</a>
+       {{#if login}}<a href="/project" class="btn btn-link">Add Project</a>{{/if}}
       </div>
 
       <div class="credit mt-1">

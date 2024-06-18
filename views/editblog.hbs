@@ -62,10 +62,16 @@
               <a class="nav-link text-primary fs-4" href="/#contact">Contact</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-primary fs-4" href="#">Add Project</a>
+              <a class="nav-link text-primary fs-4" href="/project">Add Project</a>
             </li>
           </ul>
-           <a href="/login"><button class="btn btn-outline-primary" type="submit">Log in</button> </a>
+         {{#if login}}
+          <ul class="navbar-nav mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link text-primary fs-4" href="/"><i class="fa-solid fa-circle-user"></i> Hi, {{user.username}}</a>
+            </li>
+          </ul>
+          {{/if}}
         </div>
       </div>
     </nav>
@@ -78,7 +84,7 @@
         <div class="row p-2">
           <div class="col-md-8 w-100">
             <div class="form-box">
-              <form action="/edited" method="post" onsubmit="return validateForm(event)">
+              <form action="/edited" method="post"  onsubmit="return validateForm(event)">
                <input value="{{data.id}}" name="id" type="hidden"/>
                 <h2
                   class="text-center text-white fs-2 fw-bold mb-2"
@@ -247,7 +253,7 @@
         <a href="/#testimoni" class="btn btn-link">Testimonial</a>
         <a href="/#gallery" class="btn btn-link">Gallery</a>
         <a href="/#contact" class="btn btn-link">Contact</a>
-        <a href="#" class="btn btn-link">Add Project</a>
+        {{#if login}}<a href="/project" class="btn btn-link">Add Project</a>{{/if}}
       </div>
 
       <div class="credit mt-1">

@@ -65,7 +65,13 @@
               <a class="nav-link text-primary fs-4" href="#">Add Project</a>
             </li>
           </ul>
-           <a href="/login"><button class="btn btn-outline-primary" type="submit">Log in</button> </a>
+          {{#if login}}
+          <ul class="navbar-nav mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link text-primary fs-4" href="/"><i class="fa-solid fa-circle-user"></i> Hi, {{user.username}}</a>
+            </li>
+          </ul>
+          {{/if}}
         </div>
       </div>
     </nav>
