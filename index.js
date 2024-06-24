@@ -11,6 +11,31 @@ const blogModel = require("./models").article;
 const userModel = require("./models").user
 const bcrypt = require("bcrypt")
 const session = require("express-session")
+const multer = require("multer");
+
+const fileStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./uploads");
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now();
+    cb(null, new Date().getTime() + '-' + file.originalname);
+  },
+});
+
+const fileFilter = (req,file,cb) => {
+  if(
+    file.mimetype === 'image/png' ||
+    file.mimetype === 'image/jpg' ||
+    file.mimetype === 'image/jpeg'
+  ){
+    cb(null,true);
+  } else{
+    cb(null,true);
+  }
+}
+
+const upload = multer({ storage: fileStorage, fileFilter: fileFilter });
 
 
 // app & middleware settings
@@ -29,24 +54,39 @@ app.use(session({
       maxAge:1000 * 60 * 60 *  24
   },
 }));
+app.use("/uploads", express.static(path.join(__dirname, "./uploads")));
 
 
 // routing
 app.get("/", home);
-app.get("/project", project);
-app.post("/project", addProject);
-app.get("/edit/:id",editView);
-app.post("/edited", edited);
+app.get("/project", isLoggedIn, project);
+app.post("/project", upload.single("image"), addProject);
+app.get("/edit/:id", isLoggedIn, editView);
+app.post("/edited", upload.single("image"), edited);
 app.post("/delete/:id", deletePost);
 app.get("/bigproject/:id", detailProject);
-app.get("/login", login);
+app.get("/login", redirectHomeIfLoggedIn, login);
 app.post("/signIn", signIn);
 app.post("/register", register);
-app.post("/logout", logOut)
+app.get("/logout", logOut)
 
 
 
 // function
+function isLoggedIn(req, res, next) {
+  if (!req.session || !req.session.login) {
+    return res.redirect('/login'); 
+  }
+  next(); 
+}
+
+function redirectHomeIfLoggedIn(req, res, next) {
+  if (req.session && req.session.login) {
+    return res.redirect('/'); 
+  }
+  next(); 
+}
+
 async function home(req,res){
   const query ="SELECT * FROM articles ORDER BY updated_at DESC";
   const data = await sequelize.query(query, { type: QueryTypes.SELECT });
@@ -66,6 +106,7 @@ function project(req,res){
 
 async function addProject(req, res){
   const { title, content, startdate, enddate, node, react, javaScript, vue } = req.body;
+  const file = req.file;
 
   const startDate = new Date(startdate);
   const endDate = new Date(enddate);
@@ -88,8 +129,8 @@ async function addProject(req, res){
   }
 
   const query = `
-    INSERT INTO articles (title, content, "startdate", "enddate", node, react, javascript, vue, duration,"created_at","updated_at")
-    VALUES ('${title}', '${content}', '${startDate.toISOString()}', '${endDate.toISOString()}', ${node ? 'TRUE' : 'FALSE'}, ${react ? 'TRUE' : 'FALSE'}, ${javaScript ? 'TRUE' : 'FALSE'}, ${vue ? 'TRUE' : 'FALSE'}, '${duration}', now(), now())
+    INSERT INTO articles (title, content, "startdate", "enddate", node, react, javascript, vue, image, duration,"created_at","updated_at")
+    VALUES ('${title}', '${content}', '${startDate.toISOString()}', '${endDate.toISOString()}', ${node ? 'TRUE' : 'FALSE'}, ${react ? 'TRUE' : 'FALSE'}, ${javaScript ? 'TRUE' : 'FALSE'}, ${vue ? 'TRUE' : 'FALSE'}, '${file.filename}', '${duration}', now(), now())
   `;
   const data = await sequelize.query(query, { type: QueryTypes.INSERT });
   
@@ -127,6 +168,8 @@ async function editView(req,res){
 
 async function edited(req,res){
   const { id, title, content, startdate, enddate, node, react, javaScript, vue} = req.body;
+  const image = req.file.filename;
+
 
   const startDate = new Date(startdate);
   const endDate = new Date(enddate);
@@ -153,7 +196,7 @@ async function edited(req,res){
   const query  = `
   UPDATE public.articles
   SET title=:title, content=:content, startdate=:startdate, enddate=:enddate,
-      node=:node, react=:react, javaScript=:javaScript, vue=:vue, duration=:duration, created_at=:created_at, updated_at=:updated_at
+      node=:node, react=:react, javaScript=:javaScript, vue=:vue, duration=:duration, created_at=:created_at, updated_at=:updated_at, image=:image
   WHERE id=:id`;
   const data = await sequelize.query(query, {
     replacements: {
@@ -168,7 +211,8 @@ async function edited(req,res){
       vue: vue ? 'TRUE' : 'FALSE',
       duration,
       created_at: now,
-      updated_at: now
+      updated_at: now,
+      image
     },
     type: QueryTypes.UPDATE
   });

@@ -26,7 +26,7 @@
 
     <nav class="navbar navbar-expand-lg bg-body-tertiary p-3">
       <div class="container-fluid">
-        <a href="./home.html" class="navbar-brand text-secondary fs-2">MUHARRAM</a>
+        <a href="/" class="navbar-brand text-secondary fs-2">MUHARRAM</a>
         <button
           class="navbar-toggler"
           type="button"
@@ -69,11 +69,18 @@
           <a href="/login"><button class="btn btn-outline-primary" type="submit">Log in</button> </a>
           {{/unless}}
           {{#if login}}
-          <ul class="navbar-nav mb-2 mb-lg-0">
-            <li class="nav-item">
-              <a class="nav-link text-primary fs-4" href="/"><i class="fa-solid fa-circle-user"></i> Hi, {{user.username}}</a>
+          <ul class="navbar-nav me-3 mb-2 mb-lg-0">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle text-primary fs-4" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fa-solid fa-circle-user"></i> Hi, {{user.username}}
+              </a>
+              <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Action</a></li>
+                  <li><a class="dropdown-item" href="#">Another action</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="/logout">Log out</a></li>
+              </ul>
             </li>
-          </ul>
           {{/if}}
         </div>
       </div>
@@ -91,7 +98,7 @@
       </div>
       <div class="row">
         <div class="col-12 image-content d-flex justify-content-center">
-          <img src="../assets/IMG/project-1.jpg" alt="photo" class="img-fluid rounded w-100" style="max-height: 700px; object-fit: cover;">
+          <img src="/uploads/{{data.image}}" alt="photo" class="img-fluid rounded w-100" style="max-height: 700px; object-fit: cover;">
         </div>
       </div>
       <div class="row d-flex justify-content-around text-center">
@@ -172,10 +179,7 @@
     </footer>
 
     <!-- Footer End -->
-    <script
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-    integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
-    crossorigin="anonymous"
-  ></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
   </body>
 </html>

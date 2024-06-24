@@ -78,6 +78,18 @@ body {
   transform: scale(1.05);
 }
 
+.dropdown-menu {
+  --bs-dropdown-link-color: #fff;
+  --bs-dropdown-link-hover-color: #0ef !important;
+  --bs-dropdown-divider-bg: rgb(53, 105, 109);
+  --bs-dropdown-link-hover-bg: #0ef;
+  --bs-dropdown-link-active-color: #fff;
+  --bs-dropdown-link-active-bg: #0ef;
+  --bs-dropdown-border-color: rgb(53, 105, 109);
+  color: #fff;
+  background-color:  rgba(1, 1, 1, 0.9);
+}
+
 /* NAVBAR END */
 
 /* PROJECT FORM START */

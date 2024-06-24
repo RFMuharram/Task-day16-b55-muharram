@@ -14,6 +14,8 @@ function validateForm(event) {
     var react = document.getElementById("reactJS").checked;
     var javaScript = document.getElementById("javaScript").checked;
     var vue = document.getElementById("vueJS").checked;
+    var image = document.getElementById("input-image").files[0];
+
 
 
     if (title === "") {
@@ -26,13 +28,17 @@ function validateForm(event) {
       return alert("PLEASE ENTERED THE DESCRIPTION!!");
     } else if (!node && !react && !javaScript && !vue) {
       return alert("PLEASE CHOOSE YOUR TECHNOLOGIES!!");
-    } 
+    } else if (!image) {
+      return alert("PLEASE UPLOAD YOUR IMAGE!!");
+    }
   
     if (enddate < startdate) {
       return alert(
         "E R R O R !!! PLEASE CHECK AGAIN YOUR START DATE AND END DATE!!!!"
       );
     } 
+
+
     document.forms[0].submit();
 }
 
